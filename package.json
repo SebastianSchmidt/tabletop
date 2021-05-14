@@ -2,6 +2,7 @@
   "name": "tabletop",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sebastianschmidt.github.io/tabletop/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
