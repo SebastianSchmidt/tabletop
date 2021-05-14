@@ -1,0 +1,19 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.cell {
+    border-bottom: 1px solid #757575;
+    border-left: 1px solid #757575;
+    text-align: center;
+}
+
+.firstRow {
+    border-top: 1px solid #757575;
+}
+
+.lastColumn {
+    border-right: 1px solid #757575;
+}
