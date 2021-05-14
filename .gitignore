@@ -24,3 +24,14 @@ out/
 .idea/
 *.iws
 *.iml
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
