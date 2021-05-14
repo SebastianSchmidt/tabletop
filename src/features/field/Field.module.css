@@ -1,0 +1,27 @@
+.field {
+    width: 100%;
+    height: 100%;
+    background-color: #F9F7ED;
+    overflow: scroll;
+}
+
+.gridWrapper {
+    min-width: 100%;
+    min-height: 100%;
+    display: grid;
+    padding: 2rem;
+}
+
+.gridWrapper > * {
+    margin: auto;
+}
+
+/* Padding right */
+.gridWrapper > *:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: -2rem;
+    width: 2rem;
+    height: 100%;
+}
