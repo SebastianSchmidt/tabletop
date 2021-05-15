@@ -5,7 +5,7 @@ import App from './App'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
-import { store } from './store';
+import { store } from './store'
 import { Direction } from './token'
 import { setDimensions, createToken, moveToken } from './field'
 

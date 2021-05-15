@@ -1,13 +1,41 @@
+import { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Token } from '../token'
+import { selectToken, isTokenSelected, toggleDirection } from './state'
 
 export function GridToken(props) {
-    const containerStyle = generateContainerStyle(props)
+    const { id } = props
 
+    const dispatch = useDispatch()
+
+    const selectedCallback = useCallback((state) => isTokenSelected(state, id), [id])
+    const selected = useSelector(selectedCallback)
     const { x, y, ...tokenProps } = props
+
+    const onTokenClick = useCallback((id) => {
+        if (!selected) {
+            dispatch(selectToken({ id }))
+        }
+    }, [dispatch, selected])
+
+    const onDirectionClick = useCallback((id, direction) => {
+        if (selected) {
+            dispatch(toggleDirection({ id, direction }))
+        } else {
+            dispatch(selectToken({ id }))
+        }
+    }, [dispatch, selected])
+
+    const containerStyle = generateContainerStyle(props)
 
     return (
         <div style={containerStyle}>
-            <Token {...tokenProps} />
+            <Token
+                onTokenClick={onTokenClick}
+                onDirectionClick={onDirectionClick}
+                selected={selected}
+                {...tokenProps}
+            />
         </div>
     )
 }

@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Grid } from './Grid'
 import { GridToken } from './GridToken'
-import { getColumns, getRows, getZoom, getTokens } from './state'
+import { getColumns, getRows, getZoom, getTokens, unselectToken } from './state'
 import styles from './Field.module.css'
 
 const BASE_CELL_SIZE = 100
@@ -15,9 +15,15 @@ export function Field() {
     const cellSize = generateCellSize(zoom)
     const gridTokens = generateGridTokens(tokens, cellSize)
 
+    const dispatch = useDispatch()
+    const onUnselectToken = () => dispatch(unselectToken())
+
     return (
         <div className={styles.field}>
-            <div className={styles.gridWrapper}>
+            <div
+                className={styles.gridWrapper}
+                onClick={onUnselectToken}
+            >
                 <Grid
                     columns={columns}
                     rows={rows}
@@ -38,6 +44,7 @@ function generateGridTokens(tokens, cellSize) {
     return tokens.map(token =>
         <GridToken
             key={token.id}
+            id={token.id}
             size={cellSize}
             color={token.color}
             symbol={token.symbol}

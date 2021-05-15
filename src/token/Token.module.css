@@ -22,10 +22,7 @@
     user-select: none;
 }
 
-.north,
-.south,
-.west,
-.east {
+.direction {
     position: absolute;
     width: 0;
     height: 0;
@@ -36,4 +33,29 @@
     border-color: transparent;
 
     visibility: hidden;
+}
+
+.selected .direction,
+.current.direction {
+    visibility: visible;
+}
+
+.selected .direction:not(.current) {
+    border-style: double !important;
+}
+
+.selected .north:not(.current) {
+    border-bottom-color: #9E9E9E !important;
+}
+
+.selected .south:not(.current) {
+    border-top-color: #9E9E9E !important;
+}
+
+.selected .west:not(.current) {
+    border-right-color: #9E9E9E !important;
+}
+
+.selected .east:not(.current) {
+    border-left-color: #9E9E9E !important;
 }
