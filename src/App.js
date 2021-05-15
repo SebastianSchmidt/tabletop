@@ -1,4 +1,4 @@
-import { Field } from './features/field'
+import { Field } from './field'
 
 function App() {
     return (

@@ -37,7 +37,7 @@ function generateCells(columns, rows, cellSize) {
                     key={x + ';' + y}
                     className={classNames}
                     style={style}
-                >{x + ';' + y}</div>
+                />
             )
 
         }
