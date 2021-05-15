@@ -21,9 +21,10 @@ export function Field() {
                     cellSize={cellSize}
                 >
                     <GridToken
+                        size={cellSize}
+                        color="#D5E8D4"
                         symbol="😎"
                         direction={Direction.east}
-                        size={cellSize}
                         x="4"
                         y="2"
                     />
