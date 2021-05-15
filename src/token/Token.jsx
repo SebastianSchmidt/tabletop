@@ -4,10 +4,10 @@ import chroma from 'chroma-js'
 import classNames from 'classnames'
 
 export const Direction = Object.freeze({
-    north: Symbol('north'),
-    south: Symbol('south'),
-    west: Symbol('west'),
-    east: Symbol('east')
+    north: 'north',
+    south: 'south',
+    west: 'west',
+    east: 'east'
 })
 
 export function Token({
