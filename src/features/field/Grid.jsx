@@ -1,12 +1,13 @@
 import styles from './Grid.module.css'
 
-export function Grid({ columns, rows, cellSize }) {
+export function Grid({ columns, rows, cellSize, children }) {
     const style = generateGridStyle(columns, rows, cellSize)
     const cells = generateCells(columns, rows, cellSize)
 
     return (
         <div className={styles.grid} style={style}>
             {cells}
+            {children}
         </div>
     )
 }

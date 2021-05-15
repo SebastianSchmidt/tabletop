@@ -1,0 +1,39 @@
+.container {
+    position: relative;
+}
+
+.circle {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+
+    z-index: 2;
+
+    border-radius: 50%;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+}
+
+.north,
+.south,
+.west,
+.east {
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    z-index: 1;
+
+    border-style: solid;
+    border-color: transparent;
+
+    visibility: hidden;
+}
