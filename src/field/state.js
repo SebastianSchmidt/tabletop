@@ -10,6 +10,7 @@ export const state = createSlice({
         zoom: 1,
         cells: [],
         nextTokenId: 0,
+        tokenIds: [],
         tokens: {},
         selectedTokenId: null
     },
@@ -38,6 +39,7 @@ export const state = createSlice({
                 ...action.payload
             }
 
+            state.tokenIds.push(token.id)
             state.tokens[token.id] = token
             state.cells[token.x][token.y] = token.id
         },
@@ -84,7 +86,8 @@ export const state = createSlice({
 export const getColumns = (state) => state[NAME].columns
 export const getRows = (state) => state[NAME].rows
 export const getZoom = (state) => state[NAME].zoom
-export const getTokens = (state) => Object.values(state[NAME].tokens)
+export const getTokenIds = (state) => state[NAME].tokenIds
+export const getTokenById = (state, id) => state[NAME].tokens[id]
 export const isTokenSelected = (state, tokenId) => state[NAME].selectedTokenId === tokenId
 
 export const {
