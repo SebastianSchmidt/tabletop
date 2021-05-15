@@ -2,6 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
+
+    background-color: #ECEAE0;
 }
 
 .cell {
