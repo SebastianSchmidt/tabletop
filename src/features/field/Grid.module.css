@@ -5,15 +5,19 @@
 }
 
 .cell {
-    border-bottom: 1px solid #757575;
-    border-left: 1px solid #757575;
+    border: 1px solid transparent;
+
+    border-bottom-color: #757575;
+    border-left-color: #757575;
+
     text-align: center;
+    user-select: none;
 }
 
 .firstRow {
-    border-top: 1px solid #757575;
+    border-top-color: #757575;
 }
 
 .lastColumn {
-    border-right: 1px solid #757575;
+    border-right-color: #757575;
 }
