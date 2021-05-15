@@ -1,14 +1,15 @@
 import styles from './Token.module.css'
+import chroma from 'chroma-js'
 
 export const Direction = Object.freeze({
-    north: "north",
-    south: "south",
-    west: "west",
-    east: "east"
+    north: 'north',
+    south: 'south',
+    west: 'west',
+    east: 'east'
 })
 
-export function Token({ size, symbol, direction }) {
-    const colors = generateColors()
+export function Token({ size, color, symbol, direction }) {
+    const colors = generateColors(color)
 
     const containerStyle = generateContainerStyle(size)
     const circleStyle = generateCircleStyle(colors)
@@ -30,10 +31,10 @@ export function Token({ size, symbol, direction }) {
     )
 }
 
-function generateColors() {
+function generateColors(color) {
     return {
-        backgroundColor: '#D5E8D4',
-        borderColor: '#82B366'
+        backgroundColor: color,
+        borderColor: chroma(color).darken(2).saturate(2).hex()
     }
 }
 
