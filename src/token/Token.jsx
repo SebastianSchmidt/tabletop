@@ -1,33 +1,74 @@
+import { useCallback } from 'react'
 import styles from './Token.module.css'
 import chroma from 'chroma-js'
+import classNames from 'classnames'
 
 export const Direction = Object.freeze({
-    north: 'north',
-    south: 'south',
-    west: 'west',
-    east: 'east'
+    north: Symbol('north'),
+    south: Symbol('south'),
+    west: Symbol('west'),
+    east: Symbol('east')
 })
 
-export function Token({ size, color, symbol, direction }) {
+export function Token({
+    id,
+    size,
+    color,
+    symbol,
+    direction,
+    onTokenClick,
+    onDirectionClick,
+    selected
+}) {
     const colors = generateColors(color)
 
     const containerStyle = generateContainerStyle(size)
     const circleStyle = generateCircleStyle(colors)
-    const northStyle = generateNorthStyle(size, direction, colors)
-    const southStyle = generateSouthStyle(size, direction, colors)
-    const westStyle = generateWestStyle(size, direction, colors)
-    const eastStyle = generateEastStyle(size, direction, colors)
+    const northStyle = generateNorthStyle(size, colors)
+    const southStyle = generateSouthStyle(size, colors)
+    const westStyle = generateWestStyle(size, colors)
+    const eastStyle = generateEastStyle(size, colors)
+
+    const onCircleClick = useCallback((event) => {
+        if (onTokenClick) {
+            event.stopPropagation()
+            onTokenClick(id)
+        }
+    }, [id, onTokenClick])
+
+    const onNorthClick = useDirectionClick(Direction.north, id, onDirectionClick)
+    const onSouthClick = useDirectionClick(Direction.south, id, onDirectionClick)
+    const onWestClick = useDirectionClick(Direction.west, id, onDirectionClick)
+    const onEastClick = useDirectionClick(Direction.east, id, onDirectionClick)
 
     return (
-        <div className={styles.container} style={containerStyle}>
-            <div className={styles.circle} style={circleStyle}>
+        <div
+            className={classNames(styles.container, { [styles.selected]: selected })}
+            style={containerStyle}
+        >
+            <div
+                onClick={onCircleClick}
+                className={styles.circle}
+                style={circleStyle}
+            >
                 <span>{symbol}</span>
             </div>
-            <div className={styles.north} style={northStyle} />
-            <div className={styles.south} style={southStyle} />
-            <div className={styles.west} style={westStyle} />
-            <div className={styles.east} style={eastStyle} />
+            {directionNode(Direction.north, onNorthClick, northStyle, styles.north, styles, direction)}
+            {directionNode(Direction.south, onSouthClick, southStyle, styles.south, styles, direction)}
+            {directionNode(Direction.west, onWestClick, westStyle, styles.west, styles, direction)}
+            {directionNode(Direction.east, onEastClick, eastStyle, styles.east, styles, direction)}
         </div>
+    )
+}
+
+function directionNode(direction, onClick, style, className, styles, currentDirection) {
+    const current = direction === currentDirection
+    return (
+        <div
+            onClick={onClick}
+            className={classNames(className, styles.direction, { [styles.current]: current })}
+            style={style}
+        />
     )
 }
 
@@ -52,10 +93,9 @@ function generateCircleStyle(colors) {
     }
 }
 
-function generateNorthStyle(size, direction, colors) {
+function generateNorthStyle(size, colors) {
     const borderWidth = generateBorderWidth(size)
     return {
-        ...generateBaseDirectionStyle(Direction.north, direction),
         top: 0,
         left: generatePosition(size),
         borderLeftWidth: borderWidth,
@@ -65,10 +105,9 @@ function generateNorthStyle(size, direction, colors) {
     }
 }
 
-function generateSouthStyle(size, direction, colors) {
+function generateSouthStyle(size, colors) {
     const borderWidth = generateBorderWidth(size)
     return {
-        ...generateBaseDirectionStyle(Direction.south, direction),
         bottom: 0,
         left: generatePosition(size),
         borderLeftWidth: borderWidth,
@@ -78,10 +117,9 @@ function generateSouthStyle(size, direction, colors) {
     }
 }
 
-function generateWestStyle(size, direction, colors) {
+function generateWestStyle(size, colors) {
     const borderWidth = generateBorderWidth(size)
     return {
-        ...generateBaseDirectionStyle(Direction.west, direction),
         top: generatePosition(size),
         left: 0,
         borderTopWidth: borderWidth,
@@ -91,10 +129,9 @@ function generateWestStyle(size, direction, colors) {
     }
 }
 
-function generateEastStyle(size, direction, colors) {
+function generateEastStyle(size, colors) {
     const borderWidth = generateBorderWidth(size)
     return {
-        ...generateBaseDirectionStyle(Direction.east, direction),
         top: generatePosition(size),
         right: 0,
         borderTopWidth: borderWidth,
@@ -112,8 +149,11 @@ function generatePosition(size) {
     return (size / 5) + 'px'
 }
 
-function generateBaseDirectionStyle(direction, actualDirection) {
-    return {
-        visibility: direction === actualDirection ? 'visible' : 'hidden'
-    }
+function useDirectionClick(direction, id, onDirectionClick) {
+    return useCallback((event) => {
+        if (onDirectionClick) {
+            event.stopPropagation()
+            onDirectionClick(id, direction)
+        }
+    }, [direction, id, onDirectionClick])
 }

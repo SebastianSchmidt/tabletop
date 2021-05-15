@@ -10,7 +10,8 @@ export const state = createSlice({
         zoom: 1,
         cells: [],
         nextTokenId: 0,
-        tokens: {}
+        tokens: {},
+        selectedTokenId: null
     },
     reducers: {
 
@@ -52,6 +53,29 @@ export const state = createSlice({
 
             token.x = x
             token.y = y
+        },
+
+        // Payload: id
+        selectToken(state, action) {
+            const { id } = action.payload
+            state.selectedTokenId = id
+        },
+
+        unselectToken(state) {
+            state.selectedTokenId = null
+        },
+
+        // Payload: id, direction
+        toggleDirection(state, action) {
+            const { id, direction } = action.payload
+
+            const token = state.tokens[id]
+
+            if (token.direction !== direction) {
+                token.direction = direction
+            } else {
+                token.direction = null
+            }
         }
 
     }
@@ -61,5 +85,13 @@ export const getColumns = (state) => state[NAME].columns
 export const getRows = (state) => state[NAME].rows
 export const getZoom = (state) => state[NAME].zoom
 export const getTokens = (state) => Object.values(state[NAME].tokens)
+export const isTokenSelected = (state, tokenId) => state[NAME].selectedTokenId === tokenId
 
-export const { setDimensions, createToken, moveToken } = state.actions
+export const {
+    setDimensions,
+    createToken,
+    moveToken,
+    selectToken,
+    unselectToken,
+    toggleDirection
+} = state.actions
