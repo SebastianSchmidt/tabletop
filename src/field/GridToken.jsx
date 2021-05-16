@@ -26,6 +26,7 @@ export function GridToken(props) {
     }, [dispatch, selected])
 
     const containerStyle = generateContainerStyle(x, y, size)
+
     return (
         <div style={containerStyle}>
             <Token
@@ -37,6 +38,7 @@ export function GridToken(props) {
                 onTokenClick={onTokenClick}
                 onDirectionClick={onDirectionClick}
                 selected={selected}
+                draggable={true}
             />
         </div>
     )

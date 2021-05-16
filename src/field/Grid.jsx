@@ -1,4 +1,5 @@
 import styles from './Grid.module.css'
+import { GridItem } from './GridItem'
 
 export function Grid({ columns, rows, cellSize, children }) {
     const style = generateGridStyle(columns, rows, cellSize)
@@ -20,23 +21,19 @@ function generateGridStyle(columns, rows, cellSize) {
 }
 
 function generateCells(columns, rows, cellSize) {
-    const style = generateCellStyle(cellSize)
-
     const cells = []
 
     for (let y = 0; y < rows; y++) {
 
         for (let x = 0; x < columns; x++) {
 
-            const classNames = styles.cell
-                + (y === 0 ? ' ' + styles.firstRow : '')
-                + (x === columns - 1 ? ' ' + styles.lastColumn : '')
-
             cells.push(
-                <div
+                <GridItem
                     key={x + ';' + y}
-                    className={classNames}
-                    style={style}
+                    x={x}
+                    y={y}
+                    columns={columns}
+                    size={cellSize}
                 />
             )
 
@@ -45,13 +42,4 @@ function generateCells(columns, rows, cellSize) {
     }
 
     return cells
-}
-
-function generateCellStyle(cellSize) {
-    const size = cellSize + 'px'
-    return {
-        width: size,
-        height: size,
-        lineHeight: size
-    }
 }

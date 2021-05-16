@@ -89,6 +89,7 @@ export const getZoom = (state) => state[NAME].zoom
 export const getTokenIds = (state) => state[NAME].tokenIds
 export const getTokenById = (state, id) => state[NAME].tokens[id]
 export const isTokenSelected = (state, tokenId) => state[NAME].selectedTokenId === tokenId
+export const isCellEmpty = (state, x, y) => state[NAME].cells[x][y] === null
 
 export const {
     setDimensions,
