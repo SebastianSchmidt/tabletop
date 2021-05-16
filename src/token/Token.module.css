@@ -59,3 +59,11 @@
 .selected .east:not(.current) {
     border-left-color: #9E9E9E !important;
 }
+
+.draggable {
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+}

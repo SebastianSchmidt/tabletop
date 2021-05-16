@@ -5,21 +5,3 @@
 
     background-color: #ECEAE0;
 }
-
-.cell {
-    border: 1px solid transparent;
-
-    border-bottom-color: #757575;
-    border-left-color: #757575;
-
-    text-align: center;
-    user-select: none;
-}
-
-.firstRow {
-    border-top-color: #757575;
-}
-
-.lastColumn {
-    border-right-color: #757575;
-}

@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useDrag } from 'react-dnd'
 import styles from './Token.module.css'
 import chroma from 'chroma-js'
 import classNames from 'classnames'
@@ -10,6 +11,8 @@ export const Direction = Object.freeze({
     east: 'east'
 })
 
+export const TokenType = 'Token'
+
 export function Token({
     id,
     size,
@@ -18,8 +21,21 @@ export function Token({
     direction,
     onTokenClick,
     onDirectionClick,
-    selected
+    selected,
+    draggable
 }) {
+    // Logic
+
+    const [{ isDragging }, drag] = useDraggable(id, draggable)
+
+    const onCircleClick = useCircleClick(id, onTokenClick)
+    const onNorthClick = useDirectionClick(Direction.north, id, onDirectionClick)
+    const onSouthClick = useDirectionClick(Direction.south, id, onDirectionClick)
+    const onWestClick = useDirectionClick(Direction.west, id, onDirectionClick)
+    const onEastClick = useDirectionClick(Direction.east, id, onDirectionClick)
+
+    // Styling
+
     const colors = generateColors(color)
 
     const containerStyle = generateContainerStyle(size)
@@ -29,26 +45,32 @@ export function Token({
     const westStyle = generateWestStyle(size, colors)
     const eastStyle = generateEastStyle(size, colors)
 
-    const onCircleClick = useCallback((event) => {
-        if (onTokenClick) {
-            event.stopPropagation()
-            onTokenClick(id)
+    const containerClassName = classNames(
+        styles.container,
+        {
+            [styles.selected]: selected,
+            [styles.dragging]: isDragging
         }
-    }, [id, onTokenClick])
+    )
 
-    const onNorthClick = useDirectionClick(Direction.north, id, onDirectionClick)
-    const onSouthClick = useDirectionClick(Direction.south, id, onDirectionClick)
-    const onWestClick = useDirectionClick(Direction.west, id, onDirectionClick)
-    const onEastClick = useDirectionClick(Direction.east, id, onDirectionClick)
+    const circleClassName = classNames(
+        styles.circle,
+        {
+            [styles.draggable]: draggable
+        }
+    )
+
+    // JSX
 
     return (
         <div
-            className={classNames(styles.container, { [styles.selected]: selected })}
+            ref={drag}
+            className={containerClassName}
             style={containerStyle}
         >
             <div
                 onClick={onCircleClick}
-                className={styles.circle}
+                className={circleClassName}
                 style={circleStyle}
             >
                 <span>{symbol}</span>
@@ -149,6 +171,15 @@ function generatePosition(size) {
     return (size / 5) + 'px'
 }
 
+function useCircleClick(id, onTokenClick) {
+    return useCallback((event) => {
+        if (onTokenClick) {
+            event.stopPropagation()
+            onTokenClick(id)
+        }
+    }, [id, onTokenClick])
+}
+
 function useDirectionClick(direction, id, onDirectionClick) {
     return useCallback((event) => {
         if (onDirectionClick) {
@@ -156,4 +187,15 @@ function useDirectionClick(direction, id, onDirectionClick) {
             onDirectionClick(id, direction)
         }
     }, [direction, id, onDirectionClick])
+}
+
+function useDraggable(id, draggable) {
+    return useDrag(() => ({
+        type: TokenType,
+        item: { id },
+        canDrag: () => draggable,
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }), [id, draggable])
 }
