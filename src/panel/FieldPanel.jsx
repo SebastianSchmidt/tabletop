@@ -46,7 +46,7 @@ function Dimensions() {
     return (
         <PanelCategory title="Dimensions">
             <div>
-                <label>Spalten</label>
+                <label>Columns</label>
                 <input
                     type="number"
                     min="1"
@@ -54,7 +54,7 @@ function Dimensions() {
                 />
             </div>
             <div>
-                <label>Reihen</label>
+                <label>Rows</label>
                 <input
                     type="number"
                     min="1"
