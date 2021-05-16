@@ -83,16 +83,38 @@ export function Token({
     )
 }
 
-function directionNode(direction, onClick, style, className, styles, currentDirection) {
-    const current = direction === currentDirection
-    return (
-        <div
-            onClick={onClick}
-            className={classNames(className, styles.direction, { [styles.current]: current })}
-            style={style}
-        />
-    )
+// Logic
+
+function useDraggable(id, draggable) {
+    return useDrag(() => ({
+        type: TokenType,
+        item: { id },
+        canDrag: () => draggable,
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }), [id, draggable])
 }
+
+function useCircleClick(id, onTokenClick) {
+    return useCallback((event) => {
+        if (onTokenClick) {
+            event.stopPropagation()
+            onTokenClick(id)
+        }
+    }, [id, onTokenClick])
+}
+
+function useDirectionClick(direction, id, onDirectionClick) {
+    return useCallback((event) => {
+        if (onDirectionClick) {
+            event.stopPropagation()
+            onDirectionClick(id, direction)
+        }
+    }, [direction, id, onDirectionClick])
+}
+
+// Styling
 
 function generateColors(color) {
     return {
@@ -171,31 +193,15 @@ function generatePosition(size) {
     return (size / 5) + 'px'
 }
 
-function useCircleClick(id, onTokenClick) {
-    return useCallback((event) => {
-        if (onTokenClick) {
-            event.stopPropagation()
-            onTokenClick(id)
-        }
-    }, [id, onTokenClick])
-}
+// JSX
 
-function useDirectionClick(direction, id, onDirectionClick) {
-    return useCallback((event) => {
-        if (onDirectionClick) {
-            event.stopPropagation()
-            onDirectionClick(id, direction)
-        }
-    }, [direction, id, onDirectionClick])
-}
-
-function useDraggable(id, draggable) {
-    return useDrag(() => ({
-        type: TokenType,
-        item: { id },
-        canDrag: () => draggable,
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging()
-        })
-    }), [id, draggable])
+function directionNode(direction, onClick, style, className, styles, currentDirection) {
+    const current = direction === currentDirection
+    return (
+        <div
+            onClick={onClick}
+            className={classNames(className, styles.direction, { [styles.current]: current })}
+            style={style}
+        />
+    )
 }
