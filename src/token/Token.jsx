@@ -13,6 +13,9 @@ export const Direction = Object.freeze({
 
 export const TokenType = 'Token'
 
+const BLACK_TEXT = '#000000'
+const WHITE_TEXT = '#FFFFFF'
+
 export function Token({
     id,
     size,
@@ -117,9 +120,11 @@ function useDirectionClick(direction, id, onDirectionClick) {
 // Styling
 
 function generateColors(color) {
+    const blackText = chroma.contrast(BLACK_TEXT, color) >= chroma.contrast(WHITE_TEXT, color)
     return {
         backgroundColor: color,
-        borderColor: chroma(color).darken(2).saturate(2).hex()
+        borderColor: chroma(color).darken(2).saturate(2).hex(),
+        textColor: blackText ? BLACK_TEXT : WHITE_TEXT
     }
 }
 
@@ -133,7 +138,8 @@ function generateContainerStyle(size) {
 function generateCircleStyle(colors) {
     return {
         backgroundColor: colors.backgroundColor,
-        borderColor: colors.borderColor
+        borderColor: colors.borderColor,
+        color: colors.textColor
     }
 }
 
