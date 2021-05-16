@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useInput } from '../shared/use-input'
-import { getColumns, getRows, setDimensions } from '../field'
+import { NumberField } from '../forms'
+import { getColumns, getRows, setDimensions, MIN_DIMENSIONS, MAX_DIMENSIONS } from '../field'
 import { Panel } from './Panel'
 import { PanelCategory } from './PanelCategory'
 
@@ -20,47 +20,36 @@ function Dimensions() {
     const columns = useSelector(getColumns)
     const rows = useSelector(getRows)
 
-    const columnsChanged = useCallback((value) => {
-        const columns = parseInt(value)
-        if (!isNaN(columns)) {
-            dispatch(setDimensions({
-                columns,
-                rows
-            }))
-        }
+    const columnsChanged = useCallback((columns) => {
+        dispatch(setDimensions({
+            columns,
+            rows
+        }))
     }, [dispatch, rows])
 
-    const rowsChanged = useCallback((value) => {
-        const rows = parseInt(value)
-        if (!isNaN(rows)) {
-            dispatch(setDimensions({
-                columns,
-                rows
-            }))
-        }
+    const rowsChanged = useCallback((rows) => {
+        dispatch(setDimensions({
+            columns,
+            rows
+        }))
     }, [dispatch, columns])
-
-    const [columnsBind] = useInput(columns, columnsChanged)
-    const [rowsBind] = useInput(rows, rowsChanged)
 
     return (
         <PanelCategory title="Dimensions">
-            <div>
-                <label>Columns</label>
-                <input
-                    type="number"
-                    min="1"
-                    {...columnsBind}
-                />
-            </div>
-            <div>
-                <label>Rows</label>
-                <input
-                    type="number"
-                    min="1"
-                    {...rowsBind}
-                />
-            </div>
+            <NumberField
+                label="Columns"
+                min={MIN_DIMENSIONS}
+                max={MAX_DIMENSIONS}
+                value={columns}
+                onChange={columnsChanged}
+            />
+            <NumberField
+                label="Rows"
+                min={MIN_DIMENSIONS}
+                max={MAX_DIMENSIONS}
+                value={rows}
+                onChange={rowsChanged}
+            />
         </PanelCategory>
     )
 }

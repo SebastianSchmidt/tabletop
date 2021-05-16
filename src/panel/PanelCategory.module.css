@@ -1,8 +1,12 @@
 .container {
     border-bottom: 1px solid #757575;
-    padding: 0.75rem;
+    padding: 1.25rem 0.75rem;
+}
+
+.container > *:last-child {
+    margin-bottom: 0;
 }
 
 .title {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
 }

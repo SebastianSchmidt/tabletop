@@ -15,10 +15,10 @@
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     src: local(''),
-        url('./fonts/open-sans-v18-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic-700.woff2') format('woff2'),
-        url('./fonts/open-sans-v18-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic-700.woff') format('woff');
+        url('./fonts/open-sans-v18-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic-600.woff2') format('woff2'),
+        url('./fonts/open-sans-v18-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic-600.woff') format('woff');
 }
 
 
@@ -36,19 +36,21 @@ html, body, #root {
     margin: 0;
 }
 
-body {
+html {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    user-select: none;
 }
 
 h1, h2 {
-    font-size: 1rem;
+    font-weight: 600;
     margin: 0;
 }
 
+h1 {
+    font-size: 1.25rem;
+}
 
-/* Forms */
-
-label {
-    display: block;
+h2 {
+    font-size: 1rem;
 }
