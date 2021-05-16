@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     background-color: #F9F7ED;
-    overflow: scroll;
+    overflow: auto;
     font-size: 1.5rem;
 }
 
