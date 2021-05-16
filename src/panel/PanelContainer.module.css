@@ -1,4 +1,5 @@
 .container {
     background-color: #eceae0;
     border-left: 1px solid #757575;
+    overflow-y: auto;
 }

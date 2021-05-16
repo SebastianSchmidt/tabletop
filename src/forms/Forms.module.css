@@ -1,0 +1,19 @@
+.element {
+    margin-bottom: 1rem;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    border: 1px solid #ced4da;
+    padding: 0.25rem;
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #757575;
+}

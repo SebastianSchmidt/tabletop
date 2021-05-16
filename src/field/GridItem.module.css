@@ -1,11 +1,7 @@
 .cell {
     border: 1px solid transparent;
-
     border-bottom-color: #757575;
     border-left-color: #757575;
-
-    text-align: center;
-    user-select: none;
 }
 
 .firstRow {

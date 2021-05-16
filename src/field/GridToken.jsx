@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Token } from '../token'
 import { getTokenById, selectToken, unselectToken, isTokenSelected, toggleDirection } from './state'
 
+// TODO Bug in Chrome: Drag-Preview enthält Hintergrundfarbe und Rahmen
 export function GridToken(props) {
     const { id, size } = props
 

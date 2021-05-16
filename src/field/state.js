@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const NAME = 'field'
 
-const MIN_DIMENSIONS = 1
-const MAX_DIMENSIONS = 100
+export const MIN_DIMENSIONS = 1
+export const MAX_DIMENSIONS = 100
 
 function normalizeDimension(value) {
     return Math.max(MIN_DIMENSIONS, Math.min(MAX_DIMENSIONS, value))
