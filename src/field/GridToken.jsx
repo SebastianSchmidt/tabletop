@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Token } from '../token'
-import { getTokenById, selectToken, isTokenSelected, toggleDirection } from './state'
+import { getTokenById, selectToken, unselectToken, isTokenSelected, toggleDirection } from './state'
 
 export function GridToken(props) {
     const { id, size } = props
@@ -14,6 +14,8 @@ export function GridToken(props) {
     const onTokenClick = useCallback((id) => {
         if (!selected) {
             dispatch(selectToken({ id }))
+        } else {
+            dispatch(unselectToken())
         }
     }, [dispatch, selected])
 
