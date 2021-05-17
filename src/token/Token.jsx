@@ -111,9 +111,12 @@ function useDirectionClick(direction, id, onDirectionClick) {
 // Styling
 
 function generateColors(color) {
+    const chromaticity = chroma(color).get('lch.c')
+    const saturate = chromaticity > 10 ? 2 : 0
+
     return {
         backgroundColor: color,
-        borderColor: chroma(color).darken(2).saturate(2).hex(),
+        borderColor: chroma(color).darken(2).saturate(saturate).hex(),
         textColor: getTextColor(color)
     }
 }
