@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
 import { useDrag } from 'react-dnd'
-import { getEmptyImage } from 'react-dnd-html5-backend'
 import classNames from 'classnames'
+import { useDisablePreview } from '../dnd'
 import { Token } from './Token'
 import styles from './DraggableToken.module.css'
 
@@ -31,9 +30,7 @@ export function DraggableToken(props) {
         })
     }), [id, size, color, symbol, direction])
 
-    useEffect(() => {
-        preview(getEmptyImage(), { captureDraggingState: true })
-    })
+    useDisablePreview(preview)
 
     const containerClassName = classNames({
         [styles.dragging]: isDragging
