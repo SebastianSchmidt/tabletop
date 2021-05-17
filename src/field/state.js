@@ -89,7 +89,14 @@ export const state = createSlice({
         },
 
         // Payload: id, direction
-        toggleDirection(state, action) {
+        setTokenDirection(state, action) {
+            const { id, direction } = action.payload
+            const token = state.tokens[id]
+            token.direction = direction
+        },
+
+        // Payload: id, direction
+        toggleTokenDirection(state, action) {
             const { id, direction } = action.payload
 
             const token = state.tokens[id]
@@ -106,8 +113,14 @@ export const state = createSlice({
             const { id, symbol } = action.payload
             const token = state.tokens[id]
             token.symbol = symbol
-        }
+        },
 
+        // Payload: id, color
+        setTokenColor(state, action) {
+            const { id, color } = action.payload
+            const token = state.tokens[id]
+            token.color = color
+        }
     }
 })
 
@@ -191,6 +204,8 @@ export const {
     moveToken,
     selectToken,
     unselectToken,
-    toggleDirection,
-    setTokenSymbol
+    setTokenDirection,
+    toggleTokenDirection,
+    setTokenSymbol,
+    setTokenColor
 } = state.actions

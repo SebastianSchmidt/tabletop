@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DraggableToken } from '../token'
-import { getTokenById, selectToken, unselectToken, isTokenSelected, toggleDirection } from './state'
+import { getTokenById, selectToken, unselectToken, isTokenSelected, toggleTokenDirection } from './state'
 
 export function GridToken(props) {
     const { id, size } = props
@@ -21,7 +21,7 @@ export function GridToken(props) {
 
     const onDirectionClick = useCallback((id, direction) => {
         if (selected) {
-            dispatch(toggleDirection({ id, direction }))
+            dispatch(toggleTokenDirection({ id, direction }))
         } else {
             dispatch(selectToken({ id }))
         }

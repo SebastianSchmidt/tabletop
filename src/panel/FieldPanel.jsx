@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { NumberField } from '../forms'
+import range from 'lodash.range'
+import { SelectField } from '../forms'
 import { getColumns, getRows, setDimensions, MIN_DIMENSIONS, MAX_DIMENSIONS } from '../field'
 import { Panel } from './Panel'
 import { PanelCategory } from './PanelCategory'
@@ -13,8 +14,6 @@ export function FieldPanel() {
     )
 }
 
-// TODO Besseres Handling, wenn mehrstellige Zahlen eingegeben wird
-//      (Bsp. 10: schrumpft erst auf 1, wächst dann auf 10).
 function Dimensions() {
     const dispatch = useDispatch()
     const columns = useSelector(getColumns)
@@ -35,21 +34,29 @@ function Dimensions() {
     }, [dispatch, columns])
 
     return (
-        <PanelCategory title="Dimensions">
-            <NumberField
+        <PanelCategory>
+            <DimensionSelect
                 label="Columns"
-                min={MIN_DIMENSIONS}
-                max={MAX_DIMENSIONS}
                 value={columns}
                 onChange={columnsChanged}
             />
-            <NumberField
+            <DimensionSelect
                 label="Rows"
-                min={MIN_DIMENSIONS}
-                max={MAX_DIMENSIONS}
                 value={rows}
                 onChange={rowsChanged}
             />
         </PanelCategory>
+    )
+}
+
+function DimensionSelect({ label, value, onChange }) {
+    const options = range(MIN_DIMENSIONS, MAX_DIMENSIONS + 1)
+    return (
+        <SelectField
+            label={label}
+            options={options}
+            value={value}
+            onChange={onChange}
+        />
     )
 }
