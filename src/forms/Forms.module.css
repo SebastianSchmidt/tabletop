@@ -7,13 +7,15 @@
     margin-bottom: 0.5rem;
 }
 
-.input {
+.input,
+.select {
     border: 1px solid #ced4da;
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     width: 100%;
 }
 
-.input:focus {
+.input:focus,
+.select:focus {
     outline: none;
     border-color: #757575;
 }
