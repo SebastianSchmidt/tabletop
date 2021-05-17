@@ -1,0 +1,7 @@
+.circle {
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+}

@@ -1,9 +1,8 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Token } from '../token'
+import { DraggableToken } from '../token'
 import { getTokenById, selectToken, unselectToken, isTokenSelected, toggleDirection } from './state'
 
-// TODO Bug in Chrome: Drag-Preview enthält Hintergrundfarbe und Rahmen
 export function GridToken(props) {
     const { id, size } = props
 
@@ -32,7 +31,7 @@ export function GridToken(props) {
 
     return (
         <div style={containerStyle}>
-            <Token
+            <DraggableToken
                 id={id}
                 size={size}
                 color={color}
@@ -41,7 +40,6 @@ export function GridToken(props) {
                 onTokenClick={onTokenClick}
                 onDirectionClick={onDirectionClick}
                 selected={selected}
-                draggable={true}
             />
         </div>
     )

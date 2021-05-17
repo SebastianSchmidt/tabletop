@@ -36,9 +36,12 @@ html, body, #root {
     margin: 0;
 }
 
-html {
+html, input {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+}
+
+html {
     user-select: none;
 }
 

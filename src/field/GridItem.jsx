@@ -2,7 +2,7 @@ import { useDrop } from 'react-dnd'
 import classNames from 'classnames'
 import styles from './GridItem.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { TokenType } from '../token/Token'
+import { TOKEN_DND_TYPE } from '../token'
 import { isCellEmpty, moveToken } from './state'
 
 export function GridItem({
@@ -39,7 +39,7 @@ function useDroppable(x, y) {
     const empty = useSelector((state) => isCellEmpty(state, x, y))
 
     return useDrop(() => ({
-        accept: TokenType,
+        accept: TOKEN_DND_TYPE,
         canDrop: () => empty,
         drop: (item) => handleMovenToken(item, x, y, dispatch),
         collect: (monitor) => ({

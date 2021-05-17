@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from './dnd'
 import App from './app/App'
 import * as serviceWorker from './serviceWorker'
 import './base.css'
@@ -14,7 +13,7 @@ import { setDimensions, createToken, moveToken } from './field'
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider>
                 <App />
             </DndProvider>
         </Provider>
