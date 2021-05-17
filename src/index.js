@@ -8,7 +8,7 @@ import './base.css'
 
 import { store } from './store'
 import { Direction } from './token'
-import { setDimensions, createToken, moveToken } from './field'
+import { setDimensions, createToken } from './field'
 
 ReactDOM.render(
     <React.StrictMode>
@@ -35,7 +35,7 @@ store.dispatch(createToken({
     color: '#D5E8D4',
     symbol: 'T',
     direction: Direction.west,
-    x: 4,
+    x: 3,
     y: 4
 }))
 
@@ -108,11 +108,5 @@ store.dispatch(createToken({
     symbol: '',
     direction: null,
     x: 1,
-    y: 4
-}))
-
-store.dispatch(moveToken({
-    id: '0',
-    x: 3,
     y: 4
 }))
