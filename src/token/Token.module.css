@@ -18,6 +18,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-size: 1.5rem;
 }
 
 .direction {
@@ -56,12 +58,4 @@
 
 .selected .east:not(.current) {
     border-left-color: #9E9E9E !important;
-}
-
-.draggable {
-    cursor: grab;
-}
-
-.dragging {
-    opacity: 0.5;
 }
