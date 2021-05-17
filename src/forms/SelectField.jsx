@@ -5,7 +5,11 @@ import styles from './Forms.module.css'
 export function SelectField(props) {
     const { value, label, onChange } = props
 
-    const changeHandler = useCallback((value) => onChange(value), [onChange])
+    const changeHandler = useCallback((value) => {
+        if (onChange) {
+            onChange(value)
+        }
+    }, [onChange])
     const [bind, currentValue] = useInput(value, changeHandler)
 
     const options = useMemo(

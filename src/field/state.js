@@ -106,8 +106,14 @@ export const state = createSlice({
             const { id, symbol } = action.payload
             const token = state.tokens[id]
             token.symbol = symbol
-        }
+        },
 
+        // Payload: id, color
+        setTokenColor(state, action) {
+            const { id, color } = action.payload
+            const token = state.tokens[id]
+            token.color = color
+        }
     }
 })
 
@@ -192,5 +198,6 @@ export const {
     selectToken,
     unselectToken,
     toggleDirection,
-    setTokenSymbol
+    setTokenSymbol,
+    setTokenColor
 } = state.actions

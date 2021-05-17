@@ -34,7 +34,7 @@ function Dimensions() {
     }, [dispatch, columns])
 
     return (
-        <PanelCategory title="Dimensions">
+        <PanelCategory>
             <DimensionSelect
                 label="Columns"
                 value={columns}

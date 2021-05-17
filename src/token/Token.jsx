@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
-import styles from './Token.module.css'
 import chroma from 'chroma-js'
 import classNames from 'classnames'
+import styles from './Token.module.css'
+import { getTextColor } from '../shared'
 
 export const Direction = Object.freeze({
     north: 'north',
@@ -9,9 +10,6 @@ export const Direction = Object.freeze({
     west: 'west',
     east: 'east'
 })
-
-const BLACK_TEXT = '#000000'
-const WHITE_TEXT = '#FFFFFF'
 
 export function Token({
     id,
@@ -113,11 +111,10 @@ function useDirectionClick(direction, id, onDirectionClick) {
 // Styling
 
 function generateColors(color) {
-    const blackText = chroma.contrast(BLACK_TEXT, color) >= chroma.contrast(WHITE_TEXT, color)
     return {
         backgroundColor: color,
         borderColor: chroma(color).darken(2).saturate(2).hex(),
-        textColor: blackText ? BLACK_TEXT : WHITE_TEXT
+        textColor: getTextColor(color)
     }
 }
 
