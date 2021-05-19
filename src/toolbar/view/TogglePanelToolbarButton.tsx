@@ -1,5 +1,5 @@
 import { useDispatch } from '../../app'
-import { togglePanel } from '../../panel'
+import { togglePanel } from '../../view'
 import { ToolbarButton } from '../ToolbarButton'
 
 export function TogglePanelToolbarButton() {

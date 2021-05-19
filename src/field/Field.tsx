@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import classNames from 'classnames'
 import { useDispatch } from '../app'
-import { deselectToken } from '../token'
+import { deselectToken } from '../view'
 import { Grid } from './Grid'
 import styles from './Field.module.css'
 

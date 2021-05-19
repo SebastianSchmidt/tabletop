@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
+import { ActionCreators } from 'redux-undo'
 import { DndProvider } from '../dnd'
 import { Layout } from './Layout'
 import { store } from './store'
@@ -144,3 +145,5 @@ store.dispatch(moveToken({
     x: 1,
     y: 4
 }))
+
+store.dispatch(ActionCreators.clearHistory())

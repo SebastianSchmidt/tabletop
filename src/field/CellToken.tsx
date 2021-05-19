@@ -1,6 +1,7 @@
 import { CSSProperties, useCallback } from 'react'
 import { useSelector, useDispatch, RootDispatch } from '../app'
-import { DraggableToken, selectToken, deselectToken, toggleTokenDirection, isTokenSelected } from '../token'
+import { DraggableToken, toggleTokenDirection } from '../token'
+import { selectToken, deselectToken, isTokenSelected } from '../view'
 
 type Props = {
     id: string

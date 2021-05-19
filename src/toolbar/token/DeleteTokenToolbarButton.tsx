@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from '../../app'
-import { getSelectedTokenId, deleteToken } from '../../token'
+import { deleteToken } from '../../token'
+import { getSelectedTokenId } from '../../view'
 import { ToolbarButton } from '../ToolbarButton'
 
 export function DeleteTokenToolbarButton() {
