@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { getSelectedTokenId } from '../token'
@@ -9,7 +10,7 @@ type Prop = {
     className?: string
 }
 
-export function PanelContainer({ className }: Prop) {
+export const PanelContainer = memo(({ className }: Prop) => {
     const selectedTokenId = useSelector(getSelectedTokenId)
 
     return (
@@ -20,4 +21,4 @@ export function PanelContainer({ className }: Prop) {
             }
         </div>
     )
-}
+})

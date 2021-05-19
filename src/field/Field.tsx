@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import classNames from 'classnames'
 import { useDispatch } from '../app'
 import { deselectToken } from '../token'
@@ -10,7 +11,7 @@ type Prop = {
     className?: string
 }
 
-export function Field({ className }: Prop) {
+export const Field = memo(({ className }: Prop) => {
     const dispatch = useDispatch()
     const onDeselectToken = () => dispatch(deselectToken())
 
@@ -24,4 +25,4 @@ export function Field({ className }: Prop) {
             </div>
         </div>
     )
-}
+})
