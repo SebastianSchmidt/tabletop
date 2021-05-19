@@ -1,0 +1,17 @@
+.container {
+    border-bottom: 1px solid #757575;
+    background-color: #eceae0;
+    padding: 0.25rem 0.75rem;
+}
+
+.container,
+.group {
+    display: flex;
+}
+
+.group {
+}
+
+.button {
+    padding: 0 0.5rem;
+}

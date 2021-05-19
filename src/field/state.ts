@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../app'
+import { deleteToken } from '../token'
 import { Cell } from './types'
 
 export const MIN_DIMENSIONS = 1
@@ -55,20 +56,17 @@ export const state = createSlice({
 
         moveToken(state, action: PayloadAction<{ id: string, x: number, y: number }>) {
             const { id, x, y } = action.payload
-
-            for (let x = 0; x < state.columns; x++) {
-                for (let y = 0; y < state.rows; y++) {
-                    const cell = state.cells[x][y]
-
-                    if (cell.tokenId === id) {
-                        cell.tokenId = undefined
-                        break
-                    }
-                }
-            }
-
+            removeToken(state, id)
             state.cells[x][y].tokenId = id
         }
+
+    },
+    extraReducers: (builder) => {
+
+        builder.addCase(deleteToken, (state, action) => {
+            const { id } = action.payload
+            removeToken(state, id)
+        })
 
     }
 })
@@ -94,6 +92,19 @@ function growColumns(state: State, increase: number) {
 
         for (let y = 0; y < state.rows; y++) {
             state.cells[x][y] = createCell(x, y)
+        }
+    }
+}
+
+function removeToken(state: State, id: string) {
+    for (let x = 0; x < state.columns; x++) {
+        for (let y = 0; y < state.rows; y++) {
+            const cell = state.cells[x][y]
+
+            if (cell.tokenId === id) {
+                cell.tokenId = undefined
+                break
+            }
         }
     }
 }

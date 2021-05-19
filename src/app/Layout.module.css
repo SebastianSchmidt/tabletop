@@ -1,12 +1,17 @@
 .container {
     display: grid;
     grid-template-columns: auto 200px;
-    grid-template-rows: 100%;
+    grid-template-rows: 3rem auto;
     grid-template-areas:
+        "toolbar toolbar"
         "field token-panel";
 
     width: 100%;
     height: 100%;
+}
+
+.toolbar {
+    grid-area: toolbar;
 }
 
 .field {

@@ -65,6 +65,10 @@ export const state = createSlice({
                 state.ids.splice(index, 1)
                 delete state.entities[id]
             }
+
+            if (state.selectedTokenId === id) {
+                state.selectedTokenId = undefined
+            }
         },
 
         selectToken(state, action: PayloadAction<{ id: string }>) {
