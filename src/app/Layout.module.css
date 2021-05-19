@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: auto 200px;
+    /* grid-template-columns -> Layout.tsx */
     grid-template-rows: 3rem auto;
     grid-template-areas:
         "toolbar toolbar"
