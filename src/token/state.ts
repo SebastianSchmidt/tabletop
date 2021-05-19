@@ -1,24 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import undoable, { includeAction } from 'redux-undo'
 import { RootState } from '../app'
 import { Token, TokenCreate, TokenUpdate, Direction } from './types'
 
-const NAME = 'tokens'
+export const NAME = 'tokens'
 
 interface State {
     nextTokenId: number
     ids: string[]
     entities: { [id: string]: Token }
-    selectedTokenId?: string
 }
 
 const initialState: State = {
     nextTokenId: 0,
     ids: [],
-    entities: {},
-    selectedTokenId: undefined,
+    entities: {}
 }
 
-export const state = createSlice({
+const slice = createSlice({
     name: NAME,
     initialState,
     reducers: {
@@ -65,37 +64,26 @@ export const state = createSlice({
                 state.ids.splice(index, 1)
                 delete state.entities[id]
             }
-
-            if (state.selectedTokenId === id) {
-                state.selectedTokenId = undefined
-            }
-        },
-
-        selectToken(state, action: PayloadAction<{ id: string }>) {
-            const { id } = action.payload
-
-            if (state.entities[id]) {
-                state.selectedTokenId = id
-            }
-        },
-
-        deselectToken(state) {
-            state.selectedTokenId = undefined
         }
 
     }
 })
 
-export const getTokenIds = (state: RootState) => state[NAME].ids
-export const findTokenById = (state: RootState, id: string): Token | undefined => state[NAME].entities[id]
-export const getSelectedTokenId = (state: RootState) => state[NAME].selectedTokenId
-export const isTokenSelected = (state: RootState, id: string) => state[NAME].selectedTokenId === id
+export const getTokenIds = (state: RootState) => state[NAME].present.ids
+export const findTokenById = (state: RootState, id: string): Token | undefined => state[NAME].present.entities[id]
 
 export const {
     createToken,
     updateToken,
     toggleTokenDirection,
-    deleteToken,
-    selectToken,
-    deselectToken
-} = state.actions
+    deleteToken
+} = slice.actions
+
+export const reducer = undoable(slice.reducer, {
+    filter: includeAction([
+        createToken.type,
+        updateToken.type,
+        toggleTokenDirection.type,
+        deleteToken.type
+    ])
+})

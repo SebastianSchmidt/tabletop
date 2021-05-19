@@ -1,14 +1,14 @@
 import { useSelector as useSelectorRaw, useDispatch as useDispatchRaw } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { state as tokens } from '../token'
-import { state as field } from '../field'
-import { state as panel } from '../panel'
+import { NAME as tokens, reducer as tokensReducer } from '../token'
+import { NAME as field, reducer as fieldReducer } from '../field'
+import { NAME as view, reducer as viewReducer } from '../view'
 
 export const store = configureStore({
     reducer: {
-        [tokens.name]: tokens.reducer,
-        [field.name]: field.reducer,
-        [panel.name]: panel.reducer
+        [tokens]: tokensReducer,
+        [field]: fieldReducer,
+        [view]: viewReducer
     }
 })
 

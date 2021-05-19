@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import undoable, { includeAction, groupByActionTypes } from 'redux-undo'
 import { RootState } from '../app'
 import { deleteToken } from '../token'
 import { Cell } from './types'
@@ -18,9 +19,9 @@ const initialState: State = {
     cells: [ [ createCell(0, 0) ] ]
 }
 
-const NAME = 'field'
+export const NAME = 'field'
 
-export const state = createSlice({
+const slice = createSlice({
     name: NAME,
     initialState,
     reducers: {
@@ -150,14 +151,24 @@ function shrinkRows(state: State, decrease: number) {
     }
 }
 
-export const getColumns = (state: RootState) => state[NAME].columns
-export const getRows = (state: RootState) => state[NAME].rows
+export const getColumns = (state: RootState) => state[NAME].present.columns
+export const getRows = (state: RootState) => state[NAME].present.rows
 export const findCellByCoordinates = (state: RootState, x: number, y: number) => {
-    const column = state[NAME].cells[x]
+    const column = state[NAME].present.cells[x]
     return column ? column[y] : undefined
 }
 
 export const {
     updateFieldDimensions,
     moveToken
-} = state.actions
+} = slice.actions
+
+export const reducer = undoable(slice.reducer, {
+    filter: includeAction([
+        updateFieldDimensions.type,
+        moveToken.type
+    ]),
+    groupBy: groupByActionTypes([
+        updateFieldDimensions.type
+    ])
+})
