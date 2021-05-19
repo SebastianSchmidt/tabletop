@@ -14,7 +14,7 @@ export function Layout() {
         <div className={styles.container} style={style}>
             <Toolbar className={styles.toolbar} />
             <Field className={styles.field} />
-            <PanelContainer className={styles.tokenPanel} />
+            {panel ? <PanelContainer className={styles.tokenPanel} /> : null}
         </div>
     )
 }
