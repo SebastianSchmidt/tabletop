@@ -1,7 +1,7 @@
 .container {
     border-bottom: 1px solid #757575;
     background-color: #eceae0;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 0;
 }
 
 .container,
@@ -10,9 +10,43 @@
 }
 
 .group {
-    margin-right: 0.75rem;
+    border-right: 1px solid #a4a4a4;
+    padding: 0 0.75rem;
+}
+
+.group:last-child {
+    border-right: none;
+}
+
+.group > * {
+    margin-right: 0.25rem;
+}
+
+.group > *:last-child {
+    margin-right: 0;
 }
 
 .button {
+    border: none;
     padding: 0 0.5rem;
+    cursor: pointer;
+}
+
+.button,
+.button:disabled,
+.button:disabled:hover {
+    background: none;
+}
+
+.button:hover {
+    background-color: #d3d1c7;
+}
+
+.button:disabled {
+    cursor: auto;
+    color: #959595;
+}
+
+.button:active {
+    background-color: #bab8ae;
 }
