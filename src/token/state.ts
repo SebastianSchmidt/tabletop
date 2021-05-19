@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import undoable, { includeAction } from 'redux-undo'
 import { RootState } from '../app'
 import { Token, TokenCreate, TokenUpdate, Direction } from './types'
-
-export const NAME = 'tokens'
 
 interface State {
     nextTokenId: number
@@ -17,8 +14,8 @@ const initialState: State = {
     entities: {}
 }
 
-const slice = createSlice({
-    name: NAME,
+export const slice = createSlice({
+    name: 'tokens',
     initialState,
     reducers: {
 
@@ -69,8 +66,8 @@ const slice = createSlice({
     }
 })
 
-export const getTokenIds = (state: RootState) => state[NAME].present.ids
-export const findTokenById = (state: RootState, id: string): Token | undefined => state[NAME].present.entities[id]
+export const getTokenIds = (state: RootState) => state.content.present.tokens.ids
+export const findTokenById = (state: RootState, id: string): Token | undefined => state.content.present.tokens.entities[id]
 
 export const {
     createToken,
@@ -78,12 +75,3 @@ export const {
     toggleTokenDirection,
     deleteToken
 } = slice.actions
-
-export const reducer = undoable(slice.reducer, {
-    filter: includeAction([
-        createToken.type,
-        updateToken.type,
-        toggleTokenDirection.type,
-        deleteToken.type
-    ])
-})

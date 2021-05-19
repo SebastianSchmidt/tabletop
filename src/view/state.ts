@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../app'
 import { deleteToken } from '../token'
 
-export const NAME = 'view'
-
 interface State {
     panelVisible: boolean
     selectedTokenId?: string
@@ -14,8 +12,8 @@ const initialState: State = {
     selectedTokenId: undefined
 }
 
-const slice = createSlice({
-    name: NAME,
+export const slice = createSlice({
+    name: 'view',
     initialState,
     reducers: {
 
@@ -46,14 +44,12 @@ const slice = createSlice({
     }
 })
 
-export const isPanelVisible = (state: RootState) => state[NAME].panelVisible
-export const getSelectedTokenId = (state: RootState) => state[NAME].selectedTokenId
-export const isTokenSelected = (state: RootState, id: string) => state[NAME].selectedTokenId === id
+export const isPanelVisible = (state: RootState) => state.view.panelVisible
+export const getSelectedTokenId = (state: RootState) => state.view.selectedTokenId
+export const isTokenSelected = (state: RootState, id: string) => state.view.selectedTokenId === id
 
 export const {
     togglePanel,
     selectToken,
     deselectToken
 } = slice.actions
-
-export const reducer = slice.reducer

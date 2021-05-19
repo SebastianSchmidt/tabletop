@@ -1,14 +1,22 @@
 import { useSelector as useSelectorRaw, useDispatch as useDispatchRaw } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
-import { NAME as tokens, reducer as tokensReducer } from '../token'
-import { NAME as field, reducer as fieldReducer } from '../field'
-import { NAME as view, reducer as viewReducer } from '../view'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import undoable, { groupByActionTypes } from 'redux-undo'
+import { slice as tokens } from '../token'
+import { slice as field, groupedFieldActions } from '../field'
+import { slice as view } from '../view'
+
+const undoOptions = {
+    limit: 100,
+    groupBy: groupByActionTypes(groupedFieldActions)
+}
 
 export const store = configureStore({
     reducer: {
-        [tokens]: tokensReducer,
-        [field]: fieldReducer,
-        [view]: viewReducer
+        content: undoable(combineReducers({
+            [tokens.name]: tokens.reducer,
+            [field.name]: field.reducer
+        }), undoOptions),
+        [view.name]: view.reducer
     }
 })
 
