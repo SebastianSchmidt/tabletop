@@ -1,16 +1,17 @@
 import { useCallback, MouseEvent } from 'react'
 import chroma from 'chroma-js'
 import classNames from 'classnames'
-import { useSelector } from '../app'
 import { getTextColor } from '../shared'
-import { getSelectedTokenId } from '../view'
-import { findTokenById } from './state'
 import { Direction } from './types'
 import styles from './BaseToken.module.css'
 
 type Props = {
     id: string
-    size: number
+    size: number,
+    color: string,
+    symbol: string,
+    direction: Direction,
+    selected: boolean,
     onTokenClick?: (id: string) => void
     onDirectionClick?: (id: string, direction: Direction) => void
     circleRef?: any
@@ -29,19 +30,16 @@ type DirectionProps = {
 export function BaseToken({
     id,
     size,
+    color,
+    symbol,
+    direction,
+    selected,
     onTokenClick,
     onDirectionClick,
     circleRef,
     containerClassName,
     circleClassName
 }: Props) {
-    // State
-    const selected = useSelector(state => getSelectedTokenId(state) === id)
-    const token = useSelector(state => findTokenById(state, id))
-    const symbol = token ? token.symbol : ''
-    const color = token ? token.color : '#ffffff'
-    const direction = token ? token.direction : Direction.None
-
     // Event handlers
     const onCircleClick = useCircleClick(id, onTokenClick)
     const onNorthClick = useDirectionClick(Direction.North, id, onDirectionClick)

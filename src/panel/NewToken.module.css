@@ -1,0 +1,18 @@
+.panel {
+    border-top: 1px solid #757575;
+}
+
+.tokenWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+}
+
+.token {
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+}

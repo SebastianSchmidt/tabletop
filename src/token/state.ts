@@ -3,13 +3,11 @@ import { RootState } from '../app'
 import { Token, TokenCreate, TokenUpdate, Direction } from './types'
 
 interface State {
-    nextTokenId: number
     ids: string[]
     entities: { [id: string]: Token }
 }
 
 const initialState: State = {
-    nextTokenId: 0,
     ids: [],
     entities: {}
 }
@@ -20,8 +18,8 @@ export const slice = createSlice({
     reducers: {
 
         createToken(state, action: PayloadAction<TokenCreate>) {
-            const id = (state.nextTokenId++) + ''
-            const token = { id, ...action.payload }
+            const { id, color, symbol, direction } = action.payload
+            const token = { id, color, symbol, direction }
             state.ids.push(id)
             state.entities[id] = token
         },

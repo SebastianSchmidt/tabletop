@@ -1,8 +1,10 @@
 import { CSSProperties } from 'react'
 import { useDrop } from 'react-dnd'
+import { v4 as uuidv4 } from 'uuid'
 import classNames from 'classnames'
-import { useSelector, useDispatch } from '../app'
-import { TokenDndItem, TOKEN_DND_TYPE } from '../token'
+import { useSelector, useDispatch, RootDispatch } from '../app'
+import { createToken, TokenDndItem, TOKEN_DND_TYPE } from '../token'
+import { NEW_TOKEN } from '../panel'
 import { findCellByCoordinates, moveToken } from './state'
 import { CellToken } from './CellToken'
 import styles from './Cell.module.css'
@@ -56,7 +58,7 @@ function useDroppable(x: number, y: number, empty: boolean) {
     return useDrop(() => ({
         accept: TOKEN_DND_TYPE,
         canDrop: () => empty,
-        drop: (item: TokenDndItem) => dispatch(moveToken({ x, y, id: item.id })),
+        drop: (item: TokenDndItem) => handleDrop(dispatch, x, y, item),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop()
@@ -69,5 +71,20 @@ function generateStyle(cellSize: number): CSSProperties {
     return {
         width: size,
         height: size
+    }
+}
+
+function handleDrop(dispatch: RootDispatch, x: number, y: number, { id }: TokenDndItem) {
+    if (id === NEW_TOKEN.id) {
+        dispatch(createToken({
+            x,
+            y,
+            id: uuidv4(),
+            color: NEW_TOKEN.color,
+            symbol: NEW_TOKEN.symbol,
+            direction: NEW_TOKEN.direction
+        }))
+    } else {
+        dispatch(moveToken({ x, y, id }))
     }
 }
