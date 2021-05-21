@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../app'
-import { deleteToken } from '../token'
+import { createToken, deleteToken } from '../token'
 import { Cell } from './types'
 
 export const MIN_DIMENSIONS = 1
@@ -60,6 +60,11 @@ export const slice = createSlice({
 
     },
     extraReducers: (builder) => {
+
+        builder.addCase(createToken, (state, action) => {
+            const { id, x, y } = action.payload
+            state.cells[x][y].tokenId = id
+        })
 
         builder.addCase(deleteToken, (state, action) => {
             const { id } = action.payload

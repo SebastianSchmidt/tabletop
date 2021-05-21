@@ -1,5 +1,5 @@
 import { XYCoord } from 'react-dnd'
-import { BaseToken } from './BaseToken'
+import { DynamicToken } from './DynamicToken'
 
 type Props = {
     id: string
@@ -15,7 +15,7 @@ export function DraggableTokenPreview({
     const style = generateStyle(size, offset)
     return (
         <div style={style}>
-            <BaseToken
+            <DynamicToken
                 id={id}
                 size={size}
             />

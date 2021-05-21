@@ -14,6 +14,9 @@ export interface Token {
 }
 
 export interface TokenCreate {
+    id: string
+    x: number
+    y: number
     color: string
     symbol: string
     direction: Direction

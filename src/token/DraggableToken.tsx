@@ -1,7 +1,7 @@
 import { useDrag } from 'react-dnd'
 import classNames from 'classnames'
 import { useDisablePreview } from '../dnd'
-import { BaseToken } from './BaseToken'
+import { DynamicToken } from './DynamicToken'
 import { Direction } from './types'
 import styles from './DraggableToken.module.css'
 
@@ -37,7 +37,7 @@ export function DraggableToken(props: Props) {
     })
 
     return (
-        <BaseToken
+        <DynamicToken
             {...props}
             circleRef={drag}
             containerClassName={containerClassName}
