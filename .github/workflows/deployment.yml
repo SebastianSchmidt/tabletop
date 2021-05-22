@@ -20,7 +20,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          key:  deployment-node-modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key:  node-modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           path: '**/node_modules'
 
       - name: Install dependencies
