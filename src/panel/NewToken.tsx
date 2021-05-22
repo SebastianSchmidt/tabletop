@@ -32,7 +32,7 @@ export function NewToken() {
     )
 
     return (
-        <Panel title="Neuer Token" className={styles.panel}>
+        <Panel title="New Token" className={styles.panel}>
             <div className={styles.tokenWrapper}>
                 <BaseToken
                     id={item.id}
